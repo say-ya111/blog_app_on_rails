@@ -1,0 +1,27 @@
+<% d = Date.today %>
+<div id="title">
+  <div>
+    <p><%= "#{d.year}/#{d.month}/#{d.day}/" %>書いた人:<%= @user.email %></p>
+    <h2><%= @article.title %></h2>
+  </div>
+</div>
+<div id="article_wrap">
+  <div id="content">
+    <%= @article.content %>
+    <%= @article_pv %>
+  </div>
+
+  <div id="sidebar">
+    <h2>★PV数ランキング</h2>
+    <ul>
+      <% @top_articles.each do |top_article| %>
+        <li><%= link_to article_path(top_article) do %>
+          <%= top_article.title %> <span>(<%= top_article.score.to_i %>PV)</span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</div>

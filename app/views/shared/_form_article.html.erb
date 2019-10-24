@@ -1,0 +1,11 @@
+<div id="article_wrap">
+<%= form_for(@article) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.submit yield(:button_text) %>
+<% end %>
+</div>

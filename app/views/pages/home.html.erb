@@ -1,0 +1,39 @@
+<div id="main">
+  <%= image_tag "main-img.jpg" %>
+</div>
+
+<div id="article_wrap">
+  <div id="article_list">
+    <% @articles.each do |article| %>
+      <div>
+        <h2><%= link_to article.title, article_path(article) %></h2>
+
+          <% if article.created_at != article.updated_at %>
+            <% date = article.updated_at %>     <%# 編集されていた場合、その日付 %>
+            <p><%= "#{date.year}/#{date.month}/#{date.day}" %></p>
+          <% else %>
+            <% date = article.created_at %>     <%# 編集されていない場合、作成日 %>
+            <p><%= "#{date.year}/#{date.month}/#{date.day}" %></p>
+          <% end %>
+          <% if user_signed_in? %>
+          <p><%= link_to "編集", edit_article_path(article) %>
+             <%= link_to "削除", article_path(article), method: :delete, data: { confirm: "削除してよろしいですか？" } %></p>
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="sidebar">
+    <h2>★PV数ランキング</h2>
+    <ul>
+      <% @top_articles.each do |top_article| %>
+        <li><%= link_to article_path(top_article.id) do %>
+          <%= top_article.title %> <span>(<%= top_article.score.to_i %>PV)</span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</div>
